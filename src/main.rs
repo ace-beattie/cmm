@@ -68,12 +68,17 @@ fn create_makefile(c_files: &Vec<String>) {
 
     let joined = object_files.join(" ");
 
-    write!(buffer, "all: out {}\n\tgcc {}\n\n", joined, joined).unwrap();
+    write!(
+        buffer,
+        "all: out {}\n\tgcc {} -o out/a.out\n\n",
+        joined, joined
+    )
+    .unwrap();
 
     for (i, object_file) in object_files.iter().enumerate() {
         write!(
             buffer,
-            "{}: out {}\n\t gcc {} -o {}\n\n",
+            "{}: out {}\n\t gcc -c {} -o {}\n\n",
             object_file, c_files[i], c_files[i], object_file
         )
         .unwrap();
