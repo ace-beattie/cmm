@@ -19,12 +19,6 @@ pub fn create_relative_path(abs_path: &PathBuf, rel_dir: &PathBuf) -> PathBuf {
 
     let mut curr_directory = rel_dir.canonicalize().unwrap().clone();
 
-    println!(
-        "Converting {} into relative with current directory: {}",
-        abs_path.to_string_lossy(),
-        curr_directory.to_string_lossy()
-    );
-
     while !abs_path
         .iter()
         .any(|x| x == curr_directory.file_name().unwrap_or("".as_ref()))

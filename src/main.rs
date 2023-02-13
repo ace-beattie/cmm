@@ -22,11 +22,14 @@ fn main() {
 
     let source_files: Vec<PathBuf> = get_source(args.cplusplus, &dir);
 
-    create_makefile(
+    match create_makefile(
         &source_files,
         &build_dir,
         &curr_dir,
         &args.outfile,
         args.current_dir,
-    )
+    ) {
+        Ok(_) => println!("Makefile created successfully."),
+        Err(e) => panic!("Error creating makefile: {}", e),
+    }
 }
