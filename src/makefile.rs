@@ -60,7 +60,7 @@ pub fn create_makefile(
         "all: {} {}\n\t{} $(CFLAGS) {} -o {}\n\n",
         out_dir_rel_string,
         all_objs,
-        if use_cplusplus { "gcc" } else { "g++" },
+        if use_cplusplus { "g++" } else { "gcc" },
         all_objs,
         outfile_path
     )?;
