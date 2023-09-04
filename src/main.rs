@@ -20,7 +20,7 @@ fn main() {
 
     let build_dir = PathBuf::from(&args.build_dir);
 
-    let source_files: Vec<PathBuf> = get_source(args.cplusplus, &dir);
+    let source_files: Vec<PathBuf> = get_source(args.cplusplus.clone(), &dir);
 
     match create_makefile(
         &source_files,
@@ -28,6 +28,7 @@ fn main() {
         &curr_dir,
         &args.outfile,
         args.current_dir,
+        args.cplusplus,
     ) {
         Ok(_) => println!("Makefile created successfully."),
         Err(e) => panic!("Error creating makefile: {}", e),

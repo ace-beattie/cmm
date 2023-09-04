@@ -10,6 +10,7 @@ pub fn create_makefile(
     cur_dir: &PathBuf,
     outfile_name: &str,
     place_out_in_root: bool,
+    use_cplusplus: bool,
 ) -> io::Result<()> {
     let fd = File::create("makefile").unwrap();
 
@@ -56,8 +57,12 @@ pub fn create_makefile(
 
     write!(
         buffer,
-        "all: {} {}\n\tgcc $(CFLAGS) {} -o {}\n\n",
-        out_dir_rel_string, all_objs, all_objs, outfile_path
+        "all: {} {}\n\t{} $(CFLAGS) {} -o {}\n\n",
+        out_dir_rel_string,
+        all_objs,
+        if use_cplusplus { "gcc" } else { "g++" },
+        all_objs,
+        outfile_path
     )?;
 
     for (i, object_file) in obj_paths.iter().enumerate() {

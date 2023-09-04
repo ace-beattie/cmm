@@ -82,3 +82,15 @@ pub fn get_source(cplusplus: bool, dir: &PathBuf) -> Vec<PathBuf> {
 
     source_paths
 }
+
+pub fn supply_base(path: &PathBuf) -> PathBuf {
+    if path.starts_with("./") {
+        let mut new_path = env::current_dir().unwrap();
+
+        new_path.push(path);
+
+        new_path
+    } else {
+        path.into()
+    }
+}
